@@ -1,7 +1,7 @@
 const CACHE_NAME = 'Rappi-Clon-Web';
 const urlsToCache = [
     '/',
-    '/index.php',
+    'https://rejoncanul01.github.io/rappiclon/',
     '/assets/css/style.css',
     '/vendor/fontawesome-free/css/all.min.css',
     '/css/sb-admin-2.min.css',
