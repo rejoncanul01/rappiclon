@@ -11,8 +11,8 @@
     "lang": "es-mx",
     "icons": [
         {
-        "src": "assets/img/logo1.png",
-        "sizes": "192x192",
+        "src": "assets/img/logo1.ico",
+        "sizes": "144x144",
         "type": "image/png"
         }
     ]
