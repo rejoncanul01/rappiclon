@@ -3,8 +3,8 @@
     "short_name": "Rappi",
     "description": "Delivery",
     "theme_color": "#000000",
-    "scope": "../",
-    "start_url": "../index.php",
+    "scope": "./",
+    "start_url": "./index.php",
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#ffffff",
@@ -12,7 +12,7 @@
     "icons": [
         {
         "src": "../assets/img/logo1.png",
-        "sizes": "150x149",
+        "sizes": "960x960",
         "type": "image/png"
         }
     ]
