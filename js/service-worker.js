@@ -10,6 +10,7 @@ const urlsToCache = [
     '/js/sb-admin-2.min.js',
     '/assets/css/carousel.css',
     '/js/carousel.js',
+    '/assets/img/logo1.png',
     'https://kit.fontawesome.com/f95b83b698.js',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js',
@@ -18,16 +19,43 @@ const urlsToCache = [
     'https://cdn.jsdelivr.net/npm/swiper-budle.min.css',
 ];
 
-self.addEventListener('install', event => {
-    event.waitUntil(
+self.addEventListener('install', e => {
+    e.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
-});
+            .then(cache => {
+                return cache.addAll(urlsToCache)
+                    .then(() => self.skipWaiting())
+            })
+        .catch(err => console.log('Fallo registro de chache',err))
+    )
+})
 
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
-});
+self.addEventListener('activate',e => {
+    const cacheWhitelist = [CACHE_NAME]
+
+    e.waitUntil(
+        caches.keys()
+            .then(cachesNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheWhitelist.indexof(cacheName) === -1) {
+                            return caches.delete(cacheName)
+                        }
+                    })
+                )
+            })
+        .then(() => self.clients.claim())
+    )
+})
+
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request)
+            .then(res => {
+                if (res) {
+                    return res
+                }
+                return fetch(e.request)
+            })
+    )
+})
